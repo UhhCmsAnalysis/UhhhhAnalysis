@@ -10,6 +10,7 @@ git clone https://github.com/sbein/RebalanceAndSmear/
 cd RebalanceAndSmear/
 mkdir output output/smallchunks output/mediumchunks output/bigchunks
 mkdir jobs
+mkdir pdfs
 ```
 
 ### run event analyzer script to generate histograms

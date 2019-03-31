@@ -35,7 +35,6 @@ for name in names:
 	selection = kinvar[1:kinvar.find('_')]
 	kinvar = kinvar[kinvar.find('_')+1:]
 	if '_' in kinvar: continue
-	print 'kinvar=', kinvar
 	bkghistlists[name] = []
 	for ib, bfilename in enumerate(listOfBackgroundFiles):
 		f = TFile(bfilename)
@@ -89,6 +88,7 @@ for name in names:
 	stamp()
 	newfile.cd()
 	canv.Write('c_'+name)	
+	canv.Print('pdfs/'+name[1:]+'.pdf')
 	
 
 print 'just created', newfile.GetName()
