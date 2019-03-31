@@ -75,8 +75,7 @@ for key in keys:
 		newxs = array('d',newbinning)
 		hObserved = hObserved.Rebin(nbins,'',newxs)
 		hMethod = hMethod.Rebin(nbins,'',newxs)
-		
-
+	
 
 	oldalign = tl.GetTextAlign()    
 	tl.SetTextAlign(oldalign)

@@ -36,6 +36,8 @@ binning['BinNumber'] = [34,0,34]
 binningNice = binning
 binningNice['Met'] = [10,0,300]
 
+ColorsByCategory = {'WJetsToLNu':kGreen+1,'TTJets':kOrange-2,'ZJetsToNuNu':kViolet,'Diboson':kTeal-4,'DYJets':kBlue-1,'QCD':kCyan-5,'Rare':kBlack}
+colors = [kBlack, kBlue-4, kRed+1, kGreen+1, kRed-7, kOrange+1, kTeal-7, kViolet-1, 28, kAzure-1,kRed-1,kRed-0,kRed+1,kRed+2,kPink-1,kPink+0,kPink+1,kPink+2]
 
 def histoStyler(h,color=kBlack):
 	h.SetLineWidth(2)
@@ -241,10 +243,10 @@ def mkmet(metPt, metPhi):
     
     
 datamc = 'Data'
-def stamp(lumi='35.9', showlumi = False, WorkInProgress = True):    
+def stamp(lumi='35.9', showlumi = True, WorkInProgress = True):    
 	tl.SetTextFont(cmsTextFont)
 	tl.SetTextSize(0.98*tl.GetTextSize())
-	tl.DrawLatex(0.135,0.915, 'Delphes')
+	tl.DrawLatex(0.135,0.915, 'CMS')
 	tl.SetTextFont(extraTextFont)
 	tl.SetTextSize(1.0/0.98*tl.GetTextSize())
 	xlab = 0.213
@@ -254,7 +256,7 @@ def stamp(lumi='35.9', showlumi = False, WorkInProgress = True):
 	tl.SetTextSize(0.81*tl.GetTextSize())    
 	thingy = ''
 	if showlumi: thingy+='#sqrt{s}=13 TeV, L = '+str(lumi)+' fb^{-1}'
-	xthing = 0.6202
+	xthing = 0.602
 	if not showlumi: xthing+=0.13
 	tl.DrawLatex(xthing,0.915,thingy)
 	tl.SetTextSize(1.0/0.81*tl.GetTextSize())  
@@ -263,7 +265,7 @@ def stamp(lumi='35.9', showlumi = False, WorkInProgress = True):
 def stamp2(lumi='35.9', showlumi = False):    
 	tl.SetTextFont(cmsTextFont)
 	tl.SetTextSize(0.98*tl.GetTextSize())
-	tl.DrawLatex(0.1,0.91, 'Delphes')
+	tl.DrawLatex(0.1,0.91, 'CMS')
 	tl.SetTextFont(extraTextFont)
 	tl.SetTextSize(1.0/0.98*tl.GetTextSize())
 	xlab = 0.213
@@ -527,7 +529,7 @@ def FabDrawSystyRatio(cGold,leg,hObserved,hComponents,datamc='mc',lumi=35.9, tit
 def stampFab(lumi,datamc='MC'):
 	tl.SetTextFont(cmsTextFont)
 	tl.SetTextSize(1.6*tl.GetTextSize())
-	tl.DrawLatex(0.152,0.82, 'Delphes')
+	tl.DrawLatex(0.152,0.82, 'CMS')
 	tl.SetTextFont(extraTextFont)
 	tl.DrawLatex(0.14,0.74, ('MC' in datamc)*' private')
 	tl.SetTextFont(regularfont)
@@ -543,31 +545,36 @@ units['HardMet']='GeV'
 units['Met']=units['HardMet']
 units['Ht']='GeV'
 units['St']='GeV'
-units['NJets']='bin'
-units['BTags']='bin'
+units['NJets']=''
+units['NCentralJets']=''
+units['NForwardJets']=''
+units['NLeptons']=''
+units['BTags']=''
 units['Jet1Pt']='GeV'
-units['Jet1Eta']='bin'
+units['Jet1Eta']=''
 units['Jet2Pt']='GeV'
-units['Jet2Eta']='bin'
+units['Jet2Eta']=''
 units['Jet3Pt']='GeV'
-units['Jet3Eta']='bin'
+units['Jet3Eta']=''
 units['Jet4Pt']='GeV'
-units['Jet4Eta']='bin'
+units['Jet4Eta']=''
 units['HardMetPhi']='rad'
 units['DPhi1']='rad'
 units['DPhi2']='rad'
 units['DPhi3']='rad'
 units['DPhi4']='rad'
-units['SearchBins']='bin'
+units['SearchBins']=''
 units['BestDijetMass']='GeV'
 units['MinDeltaM']='GeV'
 units['MaxDPhi']='rad'
 units['MaxForwardPt'] = 'GeV'
 units['MaxHemJetPt'] = 'GeV'
-units['HtRatio'] = 'bin'
-units['MinDeltaPhi'] = 'bin'
-units['NPhotons'] = 'bin'
-units['DPhiPhoPho'] = 'bin'
+units['HtRatio'] = ''
+units['MinDeltaPhi'] = ''
+units['NPhotons'] = ''
+units['DPhiPhoPho'] = ''
+units['DmStar'] = ''
+units['MStar'] = 'GeV'
 
 
 def mkLabel(str_,kinvar,selection=''):

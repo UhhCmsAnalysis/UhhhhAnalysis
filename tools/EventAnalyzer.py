@@ -8,7 +8,7 @@ from utils import *
 import time
 
 ##read in command line arguments
-defaultInfile_ = "/nfs/dust/cms/user/beinsam/CommonNtuples/NtupleMaker/March19NoTrack/CMSSW_9_4_11/src/TreeMaker/Production/test/VBFHHTo4B_CV_1_5_C2V_1_C3_1_13TeV_first.root_RA2AnalysisTree.root"
+defaultInfile_ = "/pnfs/desy.de/cms/tier2/store/user/sbein/NtupleHub/SpecialSM/VBFHHTo4B_CV_1_5_C2V_1_C3_1_13TeV-madgraph_file20.root_RA2AnalysisTree.root"
 #T2qqGG.root
 import argparse
 parser = argparse.ArgumentParser()
@@ -44,6 +44,11 @@ c.Show(0)
 n2process = min(n2process, nentries)
 print 'n(entries) =', n2process
 
+###handle the weight (this is always a bit ugly)
+if 'HH' in fnamekeyword: weightmode = 0# signal
+else: weightmode = 1# background
+HHCrossSection = 0.001#pb
+HHCrossSectionTimesBF = HHCrossSection*pow(0.59,2)
 
 varlist = ['St', 'NCentralJets','NForwardJets', 'BTags', 'MStar', 'DmStar',    'NLeptons']
 indexVar = {}
@@ -73,10 +78,10 @@ newname = 'hists-'+infileID+'.root'
 print 'creating file', newname
 fnew = TFile(newname, 'recreate')
 
-hSt = TH1F('hSt','hSt',120,0,2500)
-hSt.Sumw2()
-hStWeighted = TH1F('hStWeighted','hStWeighted',120,0,2500)
-hStWeighted.Sumw2()
+hHt = TH1F('hHt','hHt',120,0,2500)
+hHt.Sumw2()
+hHtWeighted = TH1F('hHtWeighted','hHtWeighted',120,0,2500)
+hHtWeighted.Sumw2()
 
 xsec_times_lumi_over_nevents = 1.0
 t0 = time.time()
@@ -88,7 +93,11 @@ for ientry in range(n2process):
 
 	#br = 0.33
 	#weight = 1.0*br*lumi/n2process#c.CrossSection
-	weight = c.CrossSection
+	if weightmode==1: weight = c.CrossSection
+	if weightmode==0: weight = HHCrossSectionTimesBF
+	
+	fillth1(hHt, c.madHT, 1)
+	fillth1(hHtWeighted, c.madHT, weight)	
 	
 	recomuons = []
 	#build up the vector of jets using TLorentzVectors; 
@@ -133,8 +142,6 @@ for ientry in range(n2process):
 	else:
 		mstar, dmstar = -1, 999
 				
-	fillth1(hSt, st,1)
-	fillth1(hStWeighted, st,weight)	
 	fv = [st,len(recojets_central),len(recojets_forward), c.BTags, mstar, dmstar, len(recoelectrons)+len(recomuons)]
 	for regionkey in regionCuts:
 		for ivar, varname in enumerate(varlist):
@@ -144,12 +151,14 @@ for ientry in range(n2process):
 
 
 fnew.cd()
-hSt.Write()
-hStWeighted.Write()
+hHt.Write()
+hHtWeighted.Write()
 writeHistoStruct(histoStructDict)
 
 print 'just created', fnew.GetName()
 fnew.Close()
+
+
 
 
 
