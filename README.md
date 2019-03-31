@@ -13,8 +13,8 @@ mkdir jobs
 mkdir pdfs
 ```
 
-### run event analyzer script to generate histograms
-#### examples:
+## run event analyzer script to generate histograms
+### examples:
 
 run over a signal file
 ```
@@ -27,14 +27,13 @@ python tools/EventAnalyzer.py --fnamekeyword  /pnfs/desy.de/cms/tier2/store/user
 ```
 
 ## parallelize running of scripts with condor jobs
+### examples:
 
 submit signal jobs (one job per input file)
 
 ```
 python tools/SubmitJobs_condor.py --analyzer tools/EventAnalyzer.py --fnamekeyword  "/pnfs/desy.de/cms/tier2/store/user/sbein/NtupleHub/SpecialSM/VBFHHTo4B*.root"
 ```
-
-## run over many background files
 
 submit background jobs (one job per input file)
 
@@ -50,8 +49,8 @@ condor_rm <job number>
 condor_release <username>
 ```
 
-## to combine the files and apply weights to the events, 
-when the jobs have finished, you can combine the many files into just a few:
+## combine the files 
+when the jobs have finished, you can combine the many files into just a few, while applying the denominator of the event weights (nevents):
 ```
 python tools/MergeHistsPropWeights.py output/smallchunks/
 ```
