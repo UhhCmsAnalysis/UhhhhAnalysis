@@ -13,7 +13,7 @@ mkdir jobs
 ```
 
 ### run event analyzer script to generate histograms
-####examples:
+#### examples:
 
 run over a signal file
 ```
