@@ -6,8 +6,8 @@ This is a package for analyzing events with HH-like final states on the NAF.
 cmsrel CMSSW_10_1_0
 cd CMSSW_10_1_0/src
 cmsenv
-git clone https://github.com/sbein/RebalanceAndSmear/
-cd RebalanceAndSmear/
+git clone https://github.com/UhhCmsAnalysis/UhhhhAnalysis/
+cd UhhhhAnalysis/
 mkdir output output/smallchunks output/mediumchunks output/bigchunks
 mkdir jobs
 mkdir pdfs
