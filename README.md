@@ -27,6 +27,13 @@ python tools/EventAnalyzer.py --fnamekeyword  /pnfs/desy.de/cms/tier2/store/user
 ```
 
 ## parallelize running of scripts with condor jobs
+
+before submitting jobs, it's good to clean out the jobs/ directory where the output/error files are cached:
+
+```
+bash tools/CleanBird.sh
+```
+
 ### examples:
 
 submit signal jobs (one job per input file)
